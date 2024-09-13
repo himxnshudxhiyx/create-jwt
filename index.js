@@ -23,8 +23,7 @@ app.post('/generate-token', (req, res) => {
         token = jwt.sign(payload, secretKey, { expiresIn: '30d' });
 
         url = 'https://livekeeping-web.web.app/?JWT=' + token + '&isDebug=true';
-        
-        console.log(url);
+
         // Send the token as a response with a 200 status code
         res.status(200).json({ token: token, url: url });
     } else {
