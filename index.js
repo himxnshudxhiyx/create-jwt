@@ -15,13 +15,18 @@ app.post('/generate-token', (req, res) => {
     const payload = req.body;
     let token = null;
 
+    let url = null;
+
     // Check if the payload is empty
     if (Object.keys(payload).length > 0) {
         // Generate JWT token
         token = jwt.sign(payload, secretKey, { expiresIn: '30d' });
+
+        url = 'https://livekeeping-web.web.app/?JWT=' + token + '&isDebug=true';
         
+        console.log(url);
         // Send the token as a response with a 200 status code
-        res.status(200).json({ token });
+        res.status(200).json({ token: token, url: url });
     } else {
         // If payload is empty, send a 400 Bad Request status code
         res.status(400).json({ error: 'Invalid payload. JSON body is required.' });
